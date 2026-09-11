@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Java Code Intent Similarity Detector</title>
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:"Segoe UI",sans-serif;
+            background:#edf2f7;
+            color:#1f2937;
+
+        }
+
+        .container{
+
+            max-width:900px;
+            margin:40px auto;
+            background:#ffffff;
+
+            padding:35px;
+
+            border-radius:12px;
+
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+
+        }
+
+        h1{
+
+            text-align:center;
+            color:#243b55;
+            margin-bottom:10px;
+
+        }
+
+        .subtitle{
+
+            text-align:center;
+            color:#6b7280;
+
+            margin-bottom:30px;
+
+            font-size:15px;
+
+        }
+
+        label{
+
+            display:block;
+            margin-bottom:8px;
+            font-weight:600;
+
+        }
+
+        textarea{
+
+            width:100%;
+            height:170px;
+
+            resize:vertical;
+
+            padding:12px;
+
+            margin-bottom:25px;
+
+            border:1px solid #cbd5e1;
+            border-radius:8px;
+
+            font-family:Consolas, monospace;
+            font-size:14px;
+
+            outline:none;
+
+        }
+
+        textarea:focus{
+
+            border-color:#2563eb;
+
+        }
+
+        .button-area{
+
+            text-align:center;
+
+        }
+
+        button{
+
+            background:#2563eb;
+            color:white;
+
+            border:none;
+
+            padding:12px 28px;
+
+            border-radius:8px;
+
+            cursor:pointer;
+
+            font-size:15px;
+
+            transition:0.2s;
+
+        }
+
+        button:hover{
+
+            background:#1d4ed8;
+
+        }
+
+        .result{
+
+            margin-top:35px;
+
+            text-align:center;
+
+        }
+
+        .result h2{
+
+            color:#243b55;
+            margin-bottom:12px;
+
+        }
+
+        .score{
+
+            font-size:34px;
+            font-weight:bold;
+
+        }
+
+        .status{
+
+            margin-top:10px;
+            font-size:22px;
+            font-weight:600;
+
+        }
+
+        .footer{
+
+            margin-top:45px;
+
+            padding-top:18px;
+
+            border-top:1px solid #e5e7eb;
+
+            text-align:center;
+
+            color:#6b7280;
+
+            font-size:14px;
+
+            line-height:1.7;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Java Code Intent Similarity Detector</h1>
+
+    <p class="subtitle">
+
+        Compare two Java programs and measure how similar their implementation logic is using AI.
+
+    </p>
+
+    <form method="POST" action="/compare">
+
+        <label>Java Program 1</label>
+
+        <textarea
+            name="code1"
+            placeholder="Paste the first Java program here..."
+        ></textarea>
+
+        <label>Java Program 2</label>
+
+        <textarea
+            name="code2"
+            placeholder="Paste the second Java program here..."
+        ></textarea>
+
+        <div class="button-area">
+
+            <button type="submit">
+
+                Check Similarity
+
+            </button>
+
+        </div>
+
+    </form>
+
+    {% if similarity %}
+
+    <div class="result">
+
+        {% if similarity is string %}
+
+            <h2>{{ similarity }}</h2>
+
+        {% else %}
+
+            <h2>Comparison Result</h2>
+
+            <div class="score">
+
+                {{ similarity }}%
+
+            </div>
+
+            <div class="status">
+
+                {% if similarity >= 85 %}
+
+                    <span style="color:#16a34a;">Highly Similar</span>
+
+                {% elif similarity >= 50 %}
+
+                    <span style="color:#ea580c;">Moderately Similar</span>
+
+                {% else %}
+
+                    <span style="color:#dc2626;">Different Logic</span>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+    <div class="footer">
+
+        Academic Mini Project<br>
+        Java Code Intent Similarity Detector<br>
+        Technologies Used: Java • Python • Flask • JavaParser • CodeBERT
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
