@@ -13,13 +13,11 @@ Compare two Java programs online and explore their estimated logical similarity 
 
 This project compares two Java programs and estimates how similar their implementation logic is.
 
-Instead of comparing only source-code text, the project uses AI-based code embeddings to estimate the semantic similarity between programs.
+Instead of comparing only source-code text, the project uses AI-based code embeddings to estimate semantic similarity between programs.
 
-The project combines Java, Python, JavaParser, Flask, and CodeBERT to calculate a similarity score between two Java methods.
+The project combines Java, Python, JavaParser, Flask, and CodeBERT to calculate a similarity score between Java methods.
 
 ## How It Works
-
-The basic workflow is:
 
 1. The user enters two Java programs.
 2. JavaParser extracts methods from the Java source code.
@@ -94,7 +92,7 @@ Java-Code-Similarity/
 ├── screenshots/
 │   ├── similar-addition-logic.png
 │   ├── addition-vs-factorial.png
-│   └── addition-vs-multiplication.png
+│   └── addition-vs-multiplication (2).png
 │
 ├── src/
 │   └── main/
@@ -137,9 +135,9 @@ One program performs addition, while the other calculates a factorial using a lo
 
 ### Addition vs Multiplication
 
-The programs perform different arithmetic operations, allowing the detector to estimate their similarity.
+One program adds two integers, while the other multiplies two integers.
 
-![Addition vs Multiplication](screenshots/addition-vs-multiplication.png)
+![Addition vs Multiplication](screenshots/addition-vs-multiplication%20(2).png)
 
 ---
 
