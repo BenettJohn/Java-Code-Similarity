@@ -135,7 +135,7 @@ One program performs addition, while the other calculates a factorial using a lo
 
 ### Addition vs Multiplication
 
-One program adds two integers, while the other multiplies two integers hence having two different logics
+One program adds two integers, while the other multiplies two integers hence having two different logics.
 
 ![Addition vs Multiplication](screenshots/addition-vs-multiplication-new.png)
 
