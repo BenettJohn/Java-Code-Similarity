@@ -123,7 +123,7 @@ The following screenshots demonstrate the application's interface and example co
 
 ### Similar Addition Logic
 
-Two Java programs use different class and variable names but perform the same addition operation.
+Two Java programs use different class and variable names but perform the same addition operation. 
 
 ![Similar Addition Logic](screenshots/similar-addition-logic.png)
 
@@ -135,7 +135,7 @@ One program performs addition, while the other calculates a factorial using a lo
 
 ### Addition vs Multiplication
 
-One program adds two integers, while the other multiplies two integers.
+One program adds two integers, while the other multiplies two integers hence having two different logics
 
 ![Addition vs Multiplication](screenshots/addition-vs-multiplication-new.png)
 
