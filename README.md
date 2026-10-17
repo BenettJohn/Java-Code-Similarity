@@ -139,7 +139,7 @@ One program performs addition, while the other calculates a factorial using a lo
 
 The programs perform different arithmetic operations, allowing the detector to estimate their similarity.
 
-![Addition vs Multiplication](screenshots/addition-vs-multiplication(2).png)
+![Addition vs Multiplication](screenshots/addition-vs-multiplication.png)
 
 ---
 
