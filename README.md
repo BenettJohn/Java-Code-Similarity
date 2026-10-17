@@ -256,3 +256,11 @@ Some possible improvements are:
 ## Academic Project
 
 This project was developed as an academic mini project to explore Java programming, code parsing, APIs and AI-based code similarity.
+
+
+## Live Demo
+
+**[Try Java Code Intent Similarity Detector](https://java-code-similarity-5okb158f6-ben-jo28.vercel.app/)**
+
+Compare two Java programs online and explore their estimated logical similarity without installing the project locally.
+
