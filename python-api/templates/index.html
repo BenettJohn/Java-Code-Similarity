@@ -1,272 +1,491 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Java Code Intent Similarity Detector</title>
 
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        body{
-
-            font-family:"Segoe UI",sans-serif;
-            background:#edf2f7;
-            color:#1f2937;
-
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            min-height: 100vh;
+            padding: 32px 18px;
         }
 
-        .container{
-
-            max-width:900px;
-            margin:40px auto;
-            background:#ffffff;
-
-            padding:35px;
-
-            border-radius:12px;
-
-            box-shadow:0 4px 12px rgba(0,0,0,0.08);
-
+        .container {
+            max-width: 1050px;
+            margin: auto;
         }
 
-        h1{
-
-            text-align:center;
-            color:#243b55;
-            margin-bottom:10px;
-
+        header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        .subtitle{
-
-            text-align:center;
-            color:#6b7280;
-
-            margin-bottom:30px;
-
-            font-size:15px;
-
+        .tag {
+            display: inline-block;
+            padding: 7px 13px;
+            margin-bottom: 15px;
+            background: #dbeafe;
+            color: #1d4ed8;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
-        label{
-
-            display:block;
-            margin-bottom:8px;
-            font-weight:600;
-
+        h1 {
+            font-size: clamp(25px, 4vw, 36px);
+            color: #172554;
+            margin-bottom: 12px;
         }
 
-        textarea{
-
-            width:100%;
-            height:170px;
-
-            resize:vertical;
-
-            padding:12px;
-
-            margin-bottom:25px;
-
-            border:1px solid #cbd5e1;
-            border-radius:8px;
-
-            font-family:Consolas, monospace;
-            font-size:14px;
-
-            outline:none;
-
+        .subtitle {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 680px;
+            margin: auto;
         }
 
-        textarea:focus{
-
-            border-color:#2563eb;
-
+        .card {
+            background: #ffffff;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
         }
 
-        .button-area{
-
-            text-align:center;
-
+        .section-heading {
+            margin-bottom: 8px;
+            font-size: 20px;
+            color: #172554;
         }
 
-        button{
-
-            background:#2563eb;
-            color:white;
-
-            border:none;
-
-            padding:12px 28px;
-
-            border-radius:8px;
-
-            cursor:pointer;
-
-            font-size:15px;
-
-            transition:0.2s;
-
+        .section-description {
+            color: #64748b;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 22px;
         }
 
-        button:hover{
-
-            background:#1d4ed8;
-
+        .editor-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
         }
 
-        .result{
-
-            margin-top:35px;
-
-            text-align:center;
-
+        .editor-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
         }
 
-        .result h2{
-
-            color:#243b55;
-            margin-bottom:12px;
-
+        label {
+            font-weight: 600;
+            font-size: 14px;
         }
 
-        .score{
-
-            font-size:34px;
-            font-weight:bold;
-
+        .language {
+            color: #64748b;
+            font-size: 12px;
         }
 
-        .status{
-
-            margin-top:10px;
-            font-size:22px;
-            font-weight:600;
-
+        textarea {
+            width: 100%;
+            min-height: 280px;
+            resize: vertical;
+            padding: 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            outline: none;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            tab-size: 4;
         }
 
-        .footer{
-
-            margin-top:45px;
-
-            padding-top:18px;
-
-            border-top:1px solid #e5e7eb;
-
-            text-align:center;
-
-            color:#6b7280;
-
-            font-size:14px;
-
-            line-height:1.7;
-
+        textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
         }
 
+        .editor-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 11px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+        }
+
+        .primary-button {
+            background: #2563eb;
+            color: white;
+            border: 1px solid #2563eb;
+        }
+
+        .primary-button:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary-button {
+            background: white;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+        }
+
+        .secondary-button:hover {
+            background: #f8fafc;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 24px;
+            text-align: center;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+        }
+
+        .result h2 {
+            font-size: 19px;
+            color: #1e3a8a;
+            margin-bottom: 12px;
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: 750;
+            color: #2563eb;
+            margin: 10px 0;
+        }
+
+        .result-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e40af;
+        }
+
+        .result-note {
+            margin-top: 12px;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .error {
+            margin-top: 22px;
+            padding: 15px;
+            color: #991b1b;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.9;
+            margin: 28px 0 5px;
+        }
+
+        @media (max-width: 720px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .editor-grid {
+                grid-template-columns: 1fr;
+                gap: 22px;
+            }
+
+            textarea {
+                min-height: 230px;
+            }
+
+            .actions button {
+                flex: 1 1 100%;
+            }
+        }
     </style>
-
 </head>
 
 <body>
+    <main class="container">
+        <header>
+            <span class="tag">ACADEMIC MINI PROJECT</span>
+            <h1>Java Code Intent Similarity Detector</h1>
+            <p class="subtitle">
+                Compare two Java programs and estimate how similar their
+                implementation logic is using CodeBERT and cosine similarity.
+            </p>
+        </header>
 
-<div class="container">
+        <section class="card">
+            <h2 class="section-heading">Compare Java Programs</h2>
+            <p class="section-description">
+                Paste your Java code into both editors, or try one of the
+                examples below. Then compare the programs.
+            </p>
 
-    <h1>Java Code Intent Similarity Detector</h1>
+            <form method="POST" action="/compare" id="compareForm">
+                <div class="editor-grid">
+                    <div>
+                        <div class="editor-heading">
+                            <label for="code1">Program 1</label>
+                            <span class="language">JAVA</span>
+                        </div>
 
-    <p class="subtitle">
+                        <textarea
+                            id="code1"
+                            name="code1"
+                            placeholder="Paste your first Java program here..."
+                            maxlength="12000"
+                            spellcheck="false"
+                            required
+                        >{{ code1 or '' }}</textarea>
 
-        Compare two Java programs and measure how similar their implementation logic is using AI.
+                        <div class="editor-footer">
+                            <span>First code sample</span>
+                            <span id="count1">0 characters</span>
+                        </div>
+                    </div>
 
-    </p>
+                    <div>
+                        <div class="editor-heading">
+                            <label for="code2">Program 2</label>
+                            <span class="language">JAVA</span>
+                        </div>
 
-    <form method="POST" action="/compare">
+                        <textarea
+                            id="code2"
+                            name="code2"
+                            placeholder="Paste your second Java program here..."
+                            maxlength="12000"
+                            spellcheck="false"
+                            required
+                        >{{ code2 or '' }}</textarea>
 
-        <label>Java Program 1</label>
+                        <div class="editor-footer">
+                            <span>Second code sample</span>
+                            <span id="count2">0 characters</span>
+                        </div>
+                    </div>
+                </div>
 
-        <textarea
-            name="code1"
-            placeholder="Paste the first Java program here..."
-        ></textarea>
+                <div class="actions">
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="loadExample('similar')"
+                    >
+                        Similar logic
+                    </button>
 
-        <label>Java Program 2</label>
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="loadExample('different')"
+                    >
+                        Different operations
+                    </button>
 
-        <textarea
-            name="code2"
-            placeholder="Paste the second Java program here..."
-        ></textarea>
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        onclick="clearEditors()"
+                    >
+                        Clear editors
+                    </button>
 
-        <div class="button-area">
+                    <button
+                        type="submit"
+                        class="primary-button"
+                        id="compareButton"
+                    >
+                        Compare Code
+                    </button>
+                </div>
+            </form>
 
-            <button type="submit">
+            {% if error_message %}
+                <div class="error" role="alert">
+                    <strong>Comparison error:</strong>
+                    {{ error_message }}
+                </div>
+            {% endif %}
 
-                Check Similarity
+            {% if similarity is defined and similarity is not none %}
+                <div class="result" role="status">
+                    <h2>Comparison Result</h2>
 
-            </button>
+                    <div class="score">{{ similarity }}%</div>
 
-        </div>
+                    <div class="result-label">
+                        {{ result_label or 'Similarity estimate' }}
+                    </div>
 
-    </form>
+                    <p class="result-note">
+                        This percentage is an experimental estimate based on
+                        code embeddings and simple logic checks. It is not
+                        proof of plagiarism or code ownership.
+                    </p>
+                </div>
+            {% endif %}
+        </section>
 
-    {% if similarity %}
+        <footer class="footer">
+            Java Code Intent Similarity Detector<br>
+            Built with Java, Python, Flask, JavaParser and CodeBERT<br>
+            Student Academic Project
+        </footer>
+    </main>
 
-    <div class="result">
+    <script>
+        const editor1 = document.getElementById("code1");
+        const editor2 = document.getElementById("code2");
+        const compareButton = document.getElementById("compareButton");
 
-        {% if similarity is string %}
+        const examples = {
+            similar: {
+                first: `public class Main {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 20;
+        int sum = a + b;
+        System.out.println(sum);
+    }
+}`,
+                second: `public class Calculator {
+    public static void main(String[] args) {
+        int first = 10;
+        int second = 20;
+        int result = first + second;
+        System.out.println(result);
+    }
+}`
+            },
 
-            <h2>{{ similarity }}</h2>
+            different: {
+                first: `public class Main {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 20;
+        int sum = a + b;
+        System.out.println(sum);
+    }
+}`,
+                second: `public class Main {
+    public static void main(String[] args) {
+        int number = 5;
+        int factorial = 1;
 
-        {% else %}
+        for (int i = 1; i <= number; i++) {
+            factorial = factorial * i;
+        }
 
-            <h2>Comparison Result</h2>
+        System.out.println(factorial);
+    }
+}`
+            }
+        };
 
-            <div class="score">
+        function updateCount(editor, counter) {
+            document.getElementById(counter).textContent =
+                editor.value.length.toLocaleString() + " characters";
+        }
 
-                {{ similarity }}%
+        editor1.addEventListener("input", function () {
+            updateCount(editor1, "count1");
+        });
 
-            </div>
+        editor2.addEventListener("input", function () {
+            updateCount(editor2, "count2");
+        });
 
-            <div class="status">
+        function loadExample(type) {
+            editor1.value = examples[type].first;
+            editor2.value = examples[type].second;
 
-                {% if similarity >= 85 %}
+            updateCount(editor1, "count1");
+            updateCount(editor2, "count2");
 
-                    <span style="color:#16a34a;">Highly Similar</span>
+            editor1.focus();
+        }
 
-                {% elif similarity >= 50 %}
+        function clearEditors() {
+            editor1.value = "";
+            editor2.value = "";
 
-                    <span style="color:#ea580c;">Moderately Similar</span>
+            updateCount(editor1, "count1");
+            updateCount(editor2, "count2");
 
-                {% else %}
+            editor1.focus();
+        }
 
-                    <span style="color:#dc2626;">Different Logic</span>
+        document.getElementById("compareForm").addEventListener(
+            "submit",
+            function (event) {
+                if (!editor1.value.trim() || !editor2.value.trim()) {
+                    event.preventDefault();
+                    alert("Please enter both Java programs before comparing.");
+                    return;
+                }
 
-                {% endif %}
+                compareButton.disabled = true;
+                compareButton.textContent = "Comparing...";
 
-            </div>
+                // Restore the button if the browser restores this page.
+                window.setTimeout(function () {
+                    compareButton.disabled = false;
+                    compareButton.textContent = "Compare Code";
+                }, 30000);
+            }
+        );
 
-        {% endif %}
-
-    </div>
-
-    {% endif %}
-
-    <div class="footer">
-
-        Academic Mini Project<br>
-        Java Code Intent Similarity Detector<br>
-        Technologies Used: Java • Python • Flask • JavaParser • CodeBERT
-
-    </div>
-
-</div>
-
+        updateCount(editor1, "count1");
+        updateCount(editor2, "count2");
+    </script>
 </body>
-
 </html>
