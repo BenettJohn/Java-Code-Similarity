@@ -1,25 +1,32 @@
+
 # Java Code Intent Similarity Detector
 
-## Project Overview
+## 🚀 Live Demo
 
-This project compares two Java programs and measures how similar their implementation logic is.
+**[Try Java Code Intent Similarity Detector](https://java-code-similarity-5okb158f6-ben-jo28.vercel.app/)**
 
-Instead of comparing only the source code text, the project uses AI-based code embeddings to compare the programs and estimate their similarity.
-
-The project combines Java, Python, JavaParser, Flask and CodeBERT to calculate a similarity score between two Java methods.
+Compare two Java programs online and explore their estimated logical similarity without installing the project locally.
 
 ---
 
+## Project Overview
+
+This project compares two Java programs and estimates how similar their implementation logic is.
+
+Instead of comparing only source-code text, the project uses AI-based code embeddings to estimate the semantic similarity between programs.
+
+The project combines Java, Python, JavaParser, Flask, and CodeBERT to calculate a similarity score between two Java methods.
+
 ## How It Works
 
-The basic working of the project is:
+The basic workflow is:
 
 1. The user enters two Java programs.
-2. JavaParser extracts the methods from the Java code.
+2. JavaParser extracts methods from the Java source code.
 3. The extracted methods are sent from Java to the Python server.
 4. CodeBERT converts the code into numerical embeddings.
 5. Cosine similarity is used to compare the embeddings.
-6. Additional rule-based checks look for differences such as loops, addition and multiplication.
+6. Additional rule-based checks look for differences such as loops, addition, and multiplication.
 7. A final similarity score is calculated.
 8. The result is displayed through the web interface.
 
@@ -27,23 +34,23 @@ The basic working of the project is:
 
 ```text
 Java Programs
-      ↓
+     ↓
 JavaParser
-      ↓
+     ↓
 Method Extraction
-      ↓
+     ↓
 Python Flask API
-      ↓
+     ↓
 CodeBERT
-      ↓
+     ↓
 Code Embeddings
-      ↓
+     ↓
 Cosine Similarity
-      ↓
-Logic-based Checks
-      ↓
+     ↓
+Logic-Based Checks
+     ↓
 Final Similarity Score
-      ↓
+     ↓
 Web Interface
 ```
 
@@ -51,13 +58,14 @@ Web Interface
 
 ## Features
 
-- Extracts Java methods using JavaParser
-- Converts Java code into embeddings using CodeBERT
-- Compares code embeddings using Cosine Similarity
-- Uses additional rule-based logic checks
-- Provides a similarity percentage
-- Shows whether the programs are highly similar, moderately similar or different
-- Provides a simple web interface for testing Java programs
+- Extracts Java methods using JavaParser.
+- Converts Java code into embeddings using CodeBERT.
+- Compares code embeddings using cosine similarity.
+- Uses additional rule-based logic checks.
+- Provides a similarity percentage.
+- Displays an estimated similarity result.
+- Provides a web interface for comparing Java programs.
+- Includes sample programs for testing different code patterns.
 
 ---
 
@@ -73,18 +81,20 @@ Web Interface
 - CodeBERT
 - HTML
 - CSS
+- JavaScript
+- Vercel
 
 ---
 
 ## Project Structure
 
 ```text
-intent-sim/
+Java-Code-Similarity/
 │
 ├── screenshots/
-│   ├── factorial-similar.png
-│   ├── addition-vs-multiplication.png
-│   └── factorial-vs-maximum.png
+│   ├── similar-addition-logic.png
+│   ├── addition-vs-factorial.png
+│   └── addition-vs-multiplication.png
 │
 ├── src/
 │   └── main/
@@ -96,6 +106,9 @@ intent-sim/
 │
 ├── python-api/
 │   ├── app.py
+│   ├── requirements.txt
+│   ├── vercel.json
+│   ├── .python-version
 │   └── templates/
 │       └── index.html
 │
@@ -108,63 +121,70 @@ intent-sim/
 
 ## Sample Results
 
-### 1. Same Logic - Factorial
+The following screenshots demonstrate the application's interface and example comparisons.
 
-Two different Java methods are used to calculate the factorial of a number.
+### Similar Addition Logic
 
-**Result: 99.96% - Highly Similar**
+Two Java programs use different class and variable names but perform the same addition operation.
 
-![Factorial Similarity](screenshots/factorial-similar.png)
+![Similar Addition Logic](screenshots/similar-addition-logic.png)
 
----
+### Addition vs Factorial
 
-### 2. Different Operations - Addition vs Multiplication
+One program performs addition, while the other calculates a factorial using a loop.
 
-Both programs perform a simple calculation, but one uses addition while the other uses multiplication.
+![Addition vs Factorial](screenshots/addition-vs-factorial.png)
 
-**Result: 59.96% - Moderately Similar**
+### Addition vs Multiplication
+
+The programs perform different arithmetic operations, allowing the detector to estimate their similarity.
 
 ![Addition vs Multiplication](screenshots/addition-vs-multiplication.png)
 
 ---
 
-### 3. Different Logic - Factorial vs Maximum
+## How to Run Locally
 
-One program calculates a factorial using a loop, while the other finds the maximum of two numbers using an if-else condition.
+### Prerequisites
 
-**Result: 19.56% - Different Logic**
+Make sure you have the following installed:
 
-![Factorial vs Maximum](screenshots/factorial-vs-maximum.png)
-
----
-
-## How to Run
+- Java Development Kit (JDK)
+- Maven
+- Python
+- Required Python dependencies
 
 ### 1. Start the Python Server
 
-Open a terminal and go to the Python API folder:
+Open a terminal in the project directory and navigate to the Python API folder:
 
 ```bash
 cd python-api
 ```
 
-Run:
+Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the Flask server:
 
 ```bash
 python app.py
 ```
 
-The Flask server should start at:
+The Flask server should be available at:
 
 ```text
 http://127.0.0.1:5000
 ```
 
----
+The first run may take some time because CodeBERT needs to download its model files.
 
 ### 2. Run the Java Application
 
-Open another terminal in the main `intent-sim` project folder.
+Open another terminal in the main project directory.
 
 Compile the project:
 
@@ -172,23 +192,19 @@ Compile the project:
 mvn clean compile
 ```
 
-Then run:
+Run the Java application:
 
 ```bash
 mvn exec:java "-Dexec.mainClass=com.intentsim.App"
 ```
 
----
-
 ### 3. Open the Web Interface
 
-Open the following address in a browser:
+Open the following address in your browser:
 
-```text
-http://127.0.0.1:5000/
-```
+[http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-Enter two Java programs and click **Check Similarity**.
+Enter two Java programs and click **Compare Code** to view the estimated similarity result.
 
 ---
 
@@ -220,7 +236,9 @@ class B {
 }
 ```
 
-These programs use different variable and method names but perform the same basic operation.
+These programs use different class, method, and variable names but perform the same basic operation.
+
+The detector uses code embeddings and additional logic checks to estimate how similar the programs are.
 
 ---
 
@@ -229,38 +247,36 @@ These programs use different variable and method names but perform the same basi
 The current version is a prototype and has some limitations:
 
 - The project currently focuses on Java code.
-- The current Java implementation extracts methods and compares the first extracted method.
+- The Java implementation extracts methods and compares the first extracted method.
 - The rule-based logic checks use simple pattern matching.
 - The penalty values are manually defined.
-- CodeBERT has input length limitations.
-- The similarity score should be treated as an estimate rather than proof that two programs are identical or copied.
+- CodeBERT has input-length limitations.
+- The similarity score is an estimate, not proof that two programs are identical or copied.
 - The project is intended for academic and learning purposes.
 
 ---
 
 ## Future Improvements
 
-Some possible improvements are:
+Possible improvements include:
 
-- Compare multiple methods in a Java file
-- Improve logic detection using the Java AST
-- Tune the rule-based penalties using a larger dataset
-- Improve the user interface
-- Add similarity reports
-- Support more programming languages
-- Improve the handling of larger Java programs
-- Explore fine-tuning CodeBERT for code similarity tasks
+- Comparing multiple methods in a Java file.
+- Improving logic detection using the Java Abstract Syntax Tree (AST).
+- Tuning rule-based penalties using a larger dataset.
+- Improving the user interface.
+- Adding downloadable similarity reports.
+- Supporting more programming languages.
+- Improving handling of larger Java programs.
+- Exploring fine-tuning CodeBERT for code-similarity tasks.
 
 ---
 
+## Source Code
+
+The complete source code is available on GitHub:
+
+**[Java Code Intent Similarity Detector — GitHub Repository](https://github.com/BenettJohn/Java-Code-Similarity)**
+
 ## Academic Project
 
-This project was developed as an academic mini project to explore Java programming, code parsing, APIs and AI-based code similarity.
-
-
-## Live Demo
-
-**[Try Java Code Intent Similarity Detector](https://java-code-similarity-5okb158f6-ben-jo28.vercel.app/)**
-
-Compare two Java programs online and explore their estimated logical similarity without installing the project locally.
-
+This project was developed as an academic mini project to explore Java programming, source-code parsing, API integration, and AI-based code similarity.
